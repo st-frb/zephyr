@@ -70,7 +70,3 @@
 		label = "MMA8652FC";
 	};
 };
-
-&spifi0 {
-	status = "okay";
-};
