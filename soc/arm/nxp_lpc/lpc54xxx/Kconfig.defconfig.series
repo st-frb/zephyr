@@ -10,7 +10,7 @@ config SOC_SERIES
 
 config NUM_IRQS
 	# must be >= the highest interrupt number used
-	default 40
+	default 56
 
 source "soc/arm/nxp_lpc/lpc54xxx/Kconfig.defconfig.lp*"
 

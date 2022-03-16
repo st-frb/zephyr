@@ -1,0 +1,38 @@
+/*
+ * Copyright (c) 2017, NXP
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/ {
+	aliases{
+		led0 = &uled0;
+		led1 = &uled1;
+		led2 = &uled2;
+		usart-0 = &flexcomm0;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+		uled0: led0 {
+			gpios = <&gpio3 14 0>;
+			label = "User LD3";
+			status = "disabled";
+		};
+		uled1: led1 {
+			gpios = <&gpio3 3 0>;
+			label = "User LD2";
+			status = "disabled";
+		};
+		uled2: led2 {
+			gpios = <&gpio2 2 0>;
+			label = "User LD1";
+			status = "disabled";
+		};
+	};
+};
+
+&flexcomm0 {
+	compatible = "nxp,lpc-usart";
+	current-speed = <115200>;
+};

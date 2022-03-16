@@ -1,0 +1,56 @@
+#include <nxp/nxp_lpc54xxx_m4.dtsi>
+/ {
+	soc {
+                gpio2: gpio@2 {
+                        compatible = "nxp,lpc-gpio";
+                        reg = <0x4008C000 0x2488>;
+                        label = "GPIO_2";
+                        gpio-controller;
+                        #gpio-cells = <2>;
+                        port = <2>;
+                };
+                gpio3: gpio@3 {
+                        compatible = "nxp,lpc-gpio";
+                        reg = <0x4008C000 0x2488>;
+                        label = "GPIO_3";
+                        gpio-controller;
+                        #gpio-cells = <2>;
+	                port = <3>;
+                };
+		flexcomm8: flexcomm@40099000 {
+			compatible = "nxp,lpc-flexcomm";			
+			reg = <0x40099000 0x1000>;
+			interrupts = <40 0>;
+			clocks = <&syscon MCUX_FLEXCOMM8_CLK>;
+			label = "FLEXCOMM_8";
+			status = "disabled";
+		};
+		flexcomm9: flexcomm@4009A000 {
+			compatible = "nxp,lpc-flexcomm";			
+			reg = <0x4009A000 0x1000>;
+			interrupts = <41 0>;
+			clocks = <&syscon MCUX_FLEXCOMM9_CLK>;
+			label = "FLEXCOMM_9";
+			status = "disabled";
+		};
+	};
+};
+
+&flash0 {
+	reg = <0 DT_SIZE_K(512)>;
+	erase-block-size = <512>;
+	write-block-size = <512>;
+};
+
+&iocon {
+	reg = <0x40001000 0x200>;
+	ranges = <0x0 0x40001000 0x200>;
+	pio2: pio0@100 {
+		compatible = "nxp,lpc-iocon-pio";
+                reg = <0x100 0x80>;
+	};
+	pio3: pio0@180 {
+		compatible = "nxp,lpc-iocon-pio";
+                reg = <0x180 0x80>;
+	};
+};

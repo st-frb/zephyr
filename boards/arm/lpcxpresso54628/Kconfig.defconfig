@@ -1,0 +1,11 @@
+# LPCXpresso54114 board
+
+# Copyright (c) 2017, NXP
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_LPCXPRESSO54608
+
+config BOARD
+	default "lpcxpresso54628" if BOARD_LPCXPRESSO54628
+
+endif # BOARD_LPCXPRESSO54628

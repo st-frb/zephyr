@@ -1,0 +1,76 @@
+/*
+ * Copyright (c) 2017, NXP
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+
+#include <nxp/nxp_lpc546xx.dtsi>
+#include "lpcxpresso54628.dtsi"
+
+/ {
+	model = "NXP LPCXpresso54628 board";
+	compatible = "nxp,lpc54xxx", "nxp,lpc";
+
+	aliases{
+		sw0 = &user_button_1;
+	};
+
+	chosen {
+		zephyr,sram = &sram0;
+		zephyr,flash = &flash0;
+		zephyr,console = &flexcomm0;
+		zephyr,shell-uart = &flexcomm0;
+	};
+
+	gpio_keys {
+		compatible = "gpio-keys";
+		user_button_1: button_0 {
+			label = "User SW5";
+			gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+		};
+	};
+};
+
+&cpu0 {
+	clock-frequency = <180000000>;
+};
+
+&mailbox0 {
+	status = "okay";
+};
+
+&uled0 {
+	status = "okay";
+};
+
+&uled1 {
+	status = "okay";
+};
+
+&uled2 {
+	status = "okay";
+};
+
+&flexcomm0 {
+	status = "okay";
+};
+
+&flexcomm2 {
+	status = "okay";
+	compatible = "nxp,lpc-i2c";
+	clock-frequency = <I2C_BITRATE_STANDARD>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+	
+	mma8652fc@1d {
+		compatible = "nxp,fxos8700","nxp,mma8652fc";
+		reg = <0x1d>;
+		label = "MMA8652FC";
+	};
+};
+
+&spifi0 {
+	status = "okay";
+};

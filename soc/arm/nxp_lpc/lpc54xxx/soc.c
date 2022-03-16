@@ -84,6 +84,27 @@ static ALWAYS_INLINE void clock_init(void)
 #endif
 
 #endif /* CONFIG_SOC_LPC54114_M4 */
+
+#if defined(CONFIG_SOC_LPC54608) 
+	/*!< Set up the clock sources */
+
+	/*!< Set up FRO */
+	POWER_DisablePD(kPDRUNCFG_PD_FRO_EN); /*!< Ensure FRO is on  */
+	CLOCK_AttachClk(kFRO12M_to_MAIN_CLK); /*!< Switch to FRO 12MHz first to ensure we can change voltage without
+						 accidentally being below the voltage for current speed */
+	CLOCK_SetFLASHAccessCyclesForFreq(CPU_FREQ); /*!< Set FLASH wait states for core */
+
+	/*!< Need to make sure ROM and OTP has power(PDRUNCFG0[17,29]= 0U)
+	     before calling this API since this API is implemented in ROM code */
+	CLOCK_SetupFROClocking(CPU_FREQ); /*!< Set up high frequency FRO output to selected frequency */
+
+	/*!< Set up dividers */
+	CLOCK_SetClkDiv(kCLOCK_DivAhbClk, 1U, false); /*!< Reset divider counter and set divider to value 1 */
+
+	/*!< Set up clock selectors - Attach clocks to the peripheries */
+	CLOCK_AttachClk(kFRO_HF_to_MAIN_CLK); /*!< Switch MAIN_CLK to FRO_HF */
+
+#endif /* CONFIG_SOC_LPC54608 */
 }
 
 /**
@@ -96,7 +117,7 @@ static ALWAYS_INLINE void clock_init(void)
  * @return 0
  */
 
-static int nxp_lpc54114_init(const struct device *arg)
+static int nxp_lpc54xxx_init(const struct device *arg)
 {
 	ARG_UNUSED(arg);
 
@@ -126,7 +147,7 @@ static int nxp_lpc54114_init(const struct device *arg)
 	return 0;
 }
 
-SYS_INIT(nxp_lpc54114_init, PRE_KERNEL_1, 0);
+SYS_INIT(nxp_lpc54xxx_init, PRE_KERNEL_1, 0);
 
 
 #ifdef CONFIG_SECOND_CORE_MCUX
