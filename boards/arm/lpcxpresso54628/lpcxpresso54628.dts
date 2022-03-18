@@ -28,7 +28,7 @@
 		compatible = "gpio-keys";
 		user_button_1: button_0 {
 			label = "User SW5";
-			gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+			gpios = <&gpio1 1 GPIO_ACTIVE_LOW>;
 		};
 	};
 };
